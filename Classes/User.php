@@ -85,8 +85,9 @@ class User extends DB
             )";
             return mysqli_query($this->db, $query);
         if(mysqli_query == true){
-            $message = urlencode("Record Has Been Added");
-            header("location:list.php?message=".$message);
+            session_start();
+            $_SESSION['message']='Record Has been Added';
+             header("location:list.php");
         }
     }
 
@@ -119,8 +120,9 @@ class User extends DB
 //        die($query);
          return mysqli_query($this->db, $query);
         if(mysqli_query == true){
-             $message = urlencode("Record Has Been Updated");
-            header("location:list.php?message=".$message);
+            session_start();
+            $_SESSION['message']='Record Has been Updated';
+             header("location:list.php");
         }
     }
     
@@ -149,8 +151,10 @@ class User extends DB
 //        die($query);
         mysqli_query($this->db, $query);
         if(mysqli_query == true){
-             $message = urlencode("Record Has Been Deleted");
-            header("location:list.php?message=".$message);
+              session_start();
+            $_SESSION['message']='Record Has been deleted';
+             header("location:list.php");
+    
         }
     }
 }
