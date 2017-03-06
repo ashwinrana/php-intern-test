@@ -77,7 +77,6 @@ class User extends DB
 
     public function insert()
     {
-        if(!empty($user)){
         $query = "insert into users(email,first_name, last_name) 
             values(
             '".$this->getEmail()."',
@@ -85,9 +84,10 @@ class User extends DB
             '".$this->getLastName()."'
             )";
             return mysqli_query($this->db, $query);
-        } 
-        $message = urlencode("You Have Entered Blank Record");
-            header("location:index.php?message=".$message);
+        if(mysqli_query == true){
+            $message = urlencode("Record Has Been Added");
+            header("location:list.php?message=".$message);
+        }
     }
 
   public function getAll()
@@ -99,7 +99,7 @@ class User extends DB
             while ($user = mysqli_fetch_assoc($result)) {
                 $thisUser = new self();
                 $thisUser->setId($user['id']);
-           0     $thisUser->setFirstName($user['first_name']);
+                $thisUser->setFirstName($user['first_name']);
                 $thisUser->setLastName($user['last_name']);
                 $thisUser->setEmail($user['email']);
                 $users[] = $thisUser;
